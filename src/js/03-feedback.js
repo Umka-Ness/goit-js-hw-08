@@ -6,8 +6,6 @@ const message = document.querySelector('textarea[name="message"]')
 const LocalKey = "feedback-form-state"
 
 
-
-
 form.addEventListener("input", throttle(e => {
     console.log(e)
     const ObjectSave = {email:email.value, message:message.value}
@@ -17,9 +15,14 @@ form.addEventListener("input", throttle(e => {
 
 form.addEventListener('submit', e => {
     e.preventDefault();
-    console.log({ email: email.value, message: message.value });
+    if(email.value === "" || message.value ==="") {
+        alert("Заполните форму")
+    }
+    const userData = localStorage.getItem(LocalKey)
+    const userInfo = JSON.parse(userData)
+    console.log(userInfo);
     form.reset();
-    
+    localStorage.removeItem(LocalKey);
   });
 
   const load = key => {
